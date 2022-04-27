@@ -11,7 +11,6 @@
     "dev": "nodemon -r tsconfig-paths/register -r ts-node index.ts | pino-pretty",
     "dev:debug": "nodemon --inspect --exec \"node -r tsconfig-paths/register -r ts-node/register\" index.ts",
     "debug": "node --inspect -r tsconfig-paths/register -r ts-node/register index.ts",
-    "lint-staged": "script-toolkit lint-staged",
     "test": "ENV_FILE=.env.test jest",
     "test:watch": "npm run test -- --watch"
   },
@@ -42,11 +41,5 @@
     "supertest": "~6.2.2",
     "@types/supertest": "~2.0.11",
     "pino-pretty": "~7.6.1"
-  },
-  "lint-staged": {
-    "**/*.ts": [
-      "eslint . --ignore-pattern 'build.ts' --ext .ts --color --max-warnings 0"
-    ]
   }
 }
-
