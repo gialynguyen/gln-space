@@ -20,6 +20,7 @@ export const startHttpServer = (): void => {
   setupAppMiddlewares(app);
 
   app.listen(port, () => {
+    // eslint-disable-next-line no-console
     console.info(`HttpServer started on port ${port}`);
   });
 };
