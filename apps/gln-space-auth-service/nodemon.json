@@ -6,4 +6,3 @@
   "watch": ["./index.ts", "./src/**", ".env"],
   "ext": "ts,js,json,yaml,yml"
 }
-

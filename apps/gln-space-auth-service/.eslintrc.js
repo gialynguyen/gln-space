@@ -1,4 +1,4 @@
 module.exports = {
   extends: [require.resolve('@gln-libs/eslint-plugins')],
-  ignorePatterns: ['.eslintrc.js']
+  ignorePatterns: ['.eslintrc.js'],
 };
