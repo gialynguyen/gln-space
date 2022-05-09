@@ -18,6 +18,16 @@ const TEMPLATE_VARIANTS = {
       packageName: true,
     },
   },
+  package: {
+    require: {
+      packageName: true,
+      description: false,
+      license: false,
+    },
+    default: {
+      pkgManager: 'npm',
+    },
+  },
 };
 
 const TEMPLATES = [
@@ -25,18 +35,22 @@ const TEMPLATES = [
     name: 'node-ts',
     type: 'project',
   },
+  {
+    name: 'ts-lib',
+    type: 'package',
+  },
 ];
 
 const renameFiles = {
   _gitignore: '.gitignore',
 };
 
-const validateNPMPackageName = (packageName) =>
+const validateNPMPackageName = packageName =>
   /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(
     packageName
   );
 
-const convertToValidPackageName = (projectName) => {
+const convertToValidPackageName = projectName => {
   return projectName
     .trim()
     .toLowerCase()
@@ -81,6 +95,9 @@ function copyDir(srcDir, destDir) {
 async function start() {
   let targetDir = argv._[0];
   let template = argv.template || argv.t;
+  let description = argv.desc;
+  let license = argv.license;
+
   const templateObject = TEMPLATES.find(({ name }) => name === template);
 
   if (!templateObject) {
@@ -101,7 +118,7 @@ async function start() {
           name: 'projectName',
           message: reset('Project name:'),
           initial: defaultProjectName,
-          onState: (state) =>
+          onState: state =>
             (targetDir = state.value.trim() || defaultProjectName),
         },
         {
@@ -111,8 +128,28 @@ async function start() {
           initial: () => {
             return convertToValidPackageName(targetDir);
           },
-          validate: (name) =>
+          validate: name =>
             validateNPMPackageName(name) || 'Invalid package name',
+        },
+        {
+          type:
+            templateOptions.require.description != null && !description
+              ? 'text'
+              : null,
+          name: 'description',
+          message: reset('Description:'),
+          initial: description,
+          onState: state => (description = state.value),
+        },
+        {
+          type:
+            templateOptions.require.description != null && !description
+              ? 'text'
+              : null,
+          name: 'license',
+          message: reset('License:'),
+          initial: description,
+          onState: state => (license = state.value),
         },
       ],
       {
@@ -151,19 +188,27 @@ async function start() {
       }
     };
 
-    for (const file of files.filter((f) => f !== 'package.json')) {
+    for (const file of files.filter(f => f !== 'package.json')) {
       writeFile(file);
     }
 
     const pkgJson = require(path.join(templateDir, `package.json`));
     if (pkgJson) {
       pkgJson.name = packageName;
+      if (license) {
+        pkgJson.license = license;
+      }
+
+      if (description) {
+        pkgJson.description = description;
+      }
 
       writeFile('package.json', JSON.stringify(pkgJson, null, 2));
 
       console.log(`${lightCyan('Installing packages...')}`);
       const pkgManager =
         argv.pkgManager ||
+        templateOptions.default?.pkgManager ||
         (commandExistsSync('pnpm') && 'pnpm') ||
         (commandExistsSync('yarn') && 'yarn') ||
         'npm';
@@ -181,6 +226,6 @@ async function start() {
   }
 }
 
-start().catch((e) => {
+start().catch(e => {
   console.error(e);
 });
