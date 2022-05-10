@@ -5,7 +5,7 @@ import {
   ValidateError,
 } from '@gln-libs/node-infrastructure';
 
-export const erroHandlerMiddleware = async (
+export const errorHandlerMiddleware = async (
   error: Error,
   _: Request,
   res: Response,

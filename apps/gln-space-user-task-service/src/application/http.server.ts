@@ -3,7 +3,7 @@ import express from 'express';
 
 import { AppConfig } from './config';
 import { ExampleController } from './example/example.controller';
-import { corsMiddleware, erroHandlerMiddleware } from './middleware';
+import { corsMiddleware, errorHandlerMiddleware } from './middleware';
 
 const setupAppMiddlewares = (app: express.Express) => {
   app.use(httpLogger());
@@ -26,7 +26,7 @@ const initializeControllers = (router: express.Router): void => {
 };
 
 const setupBackgroundAppMiddlewares = (app: express.Express) => {
-  app.use(erroHandlerMiddleware);
+  app.use(errorHandlerMiddleware);
 };
 
 export const startHttpServer = (): void => {
