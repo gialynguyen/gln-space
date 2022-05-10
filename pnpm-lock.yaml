@@ -70,7 +70,7 @@ importers:
   apps/gln-space-user-task-service:
     specifiers:
       '@gln-libs/eslint-plugins': 1.0.0
-      '@gln-libs/node-infrastructure': workspace:*
+      '@gln-libs/node-infrastructure': ^0.3.2
       '@types/cors': ~2.8.12
       '@types/express': ^4.17.13
       '@types/jest': ~27.4.1
