@@ -10,7 +10,8 @@
       "outputs": []
     },
     "lint-staged": {
-      "outputs": []
+      "outputs": [],
+      "cache": false
     },
     "dev": {
       "cache": false
