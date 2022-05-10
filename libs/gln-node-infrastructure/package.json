@@ -2,7 +2,7 @@
   "name": "@gln-libs/node-infrastructure",
   "description": "Common Infrastructure Nodejs",
   "license": "MIT",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "typings": "dist/index.d.ts",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/node": "~17.0.25",
+    "@types/jest": "~27.5.0",
     "esbuild": "^0.14.38",
     "jest": "^28.1.0",
     "pino-pretty": "~7.6.1",

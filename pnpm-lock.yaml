@@ -175,6 +175,7 @@ importers:
   libs/gln-node-infrastructure:
     specifiers:
       '@types/express': ^4.17.13
+      '@types/jest': ~27.5.0
       '@types/node': ~17.0.25
       class-transformer: ^0.5.1
       class-transformer-validator: ^0.9.1
@@ -206,6 +207,7 @@ importers:
       typeorm: 0.2.45
     devDependencies:
       '@types/express': 4.17.13
+      '@types/jest': 27.5.0
       '@types/node': 17.0.25
       esbuild: 0.14.38
       jest: 28.1.0_@types+node@17.0.25
@@ -214,7 +216,7 @@ importers:
       rollup: 2.72.1
       rollup-plugin-dts: 4.2.1_rollup@2.72.1+typescript@4.6.4
       rollup-plugin-esbuild: 4.9.1_esbuild@0.14.38+rollup@2.72.1
-      ts-jest: 28.0.2_a8b8c6f473b127459501ac6141eb9524
+      ts-jest: 28.0.2_572f5494b613c4a635e3e9455bd5a3d7
       typescript: 4.6.4
 
   libs/gln-templates:
@@ -1430,6 +1432,13 @@ packages:
 
   /@types/jest/27.4.1:
     resolution: {integrity: sha512-23iPJADSmicDVrWk+HT58LMJtzLAnB2AgIzplQuq/bSrGaxCrlvRFjGbXmamnnk/mAmCdLStiGqggu28ocUyiw==}
+    dependencies:
+      jest-matcher-utils: 27.5.1
+      pretty-format: 27.5.1
+    dev: true
+
+  /@types/jest/27.5.0:
+    resolution: {integrity: sha512-9RBFx7r4k+msyj/arpfaa0WOOEcaAZNmN+j80KFbFCoSqCJGHTz7YMAMGQW9Xmqm5w6l5c25vbSjMwlikJi5+g==}
     dependencies:
       jest-matcher-utils: 27.5.1
       pretty-format: 27.5.1
@@ -7479,7 +7488,7 @@ packages:
       yargs-parser: 20.2.9
     dev: true
 
-  /ts-jest/28.0.2_a8b8c6f473b127459501ac6141eb9524:
+  /ts-jest/28.0.2_572f5494b613c4a635e3e9455bd5a3d7:
     resolution: {integrity: sha512-IOZMb3D0gx6IHO9ywPgiQxJ3Zl4ECylEFwoVpENB55aTn5sdO0Ptyx/7noNBxAaUff708RqQL4XBNxxOVjY0vQ==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -7500,6 +7509,7 @@ packages:
       esbuild:
         optional: true
     dependencies:
+      '@types/jest': 27.5.0
       bs-logger: 0.2.6
       esbuild: 0.14.38
       fast-json-stable-stringify: 2.1.0
