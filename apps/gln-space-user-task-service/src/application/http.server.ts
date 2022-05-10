@@ -1,8 +1,4 @@
-import {
-  httpLogger,
-  Response,
-  ResponseUtils,
-} from '@gln-libs/node-infrastructure';
+import { httpLogger, ResponseUtils } from '@gln-libs/node-infrastructure';
 import express from 'express';
 
 import { AppConfig } from './config';
@@ -12,7 +8,7 @@ import { corsMiddleware, erroHandlerMiddleware } from './middleware';
 const setupAppMiddlewares = (app: express.Express) => {
   app.use(httpLogger());
   app.use((_, res, next) => {
-    Object.assign(res, ResponseUtils(res as Response));
+    Object.assign(res, ResponseUtils(res));
     next();
   });
 
