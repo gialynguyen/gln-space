@@ -4,4 +4,4 @@
 
 - Docker
 - pnpm
-- NodeJS 16
+- NodeJS 14
