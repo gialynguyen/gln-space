@@ -1,10 +1,15 @@
-import { Response, ResponseUtils } from '@gln-libs/node-infrastructure';
+import {
+  httpLogger,
+  Response,
+  ResponseUtils,
+} from '@gln-libs/node-infrastructure';
 import express from 'express';
 
 import { AppConfig } from './config';
 import { corsMiddleware } from './middleware';
 
 const setupAppMiddlewares = (app: express.Express) => {
+  app.use(httpLogger());
   app.use((_, res, next) => {
     Object.assign(res, ResponseUtils(res as Response));
     next();

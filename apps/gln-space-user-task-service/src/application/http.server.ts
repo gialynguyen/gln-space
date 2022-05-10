@@ -10,7 +10,7 @@ import { ExampleController } from './example/example.controller';
 import { corsMiddleware, erroHandlerMiddleware } from './middleware';
 
 const setupAppMiddlewares = (app: express.Express) => {
-  app.use(httpLogger);
+  app.use(httpLogger());
   app.use((_, res, next) => {
     Object.assign(res, ResponseUtils(res as Response));
     next();

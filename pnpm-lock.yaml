@@ -67,7 +67,7 @@ importers:
       tscpaths: 0.0.9
       typescript: 4.6.3
 
-  apps/gln-space-calendar-service:
+  apps/gln-space-user-task-service:
     specifiers:
       '@gln-libs/eslint-plugins': 1.0.0
       '@gln-libs/node-infrastructure': workspace:*
