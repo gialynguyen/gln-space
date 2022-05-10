@@ -4,5 +4,8 @@
   "verbose": true,
   "delay": 1000,
   "watch": ["./index.ts", "./src/**", ".env"],
-  "ext": "ts,js,json,yaml,yml"
+  "ext": "ts,js,json,yaml,yml",
+  "events": {
+    "start": "pnpm dev:resources"
+  }
 }
