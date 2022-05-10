@@ -10,7 +10,7 @@ export type ResponseUtils = {
 
 export type Response = ResponseBase & ResponseUtils;
 
-export const ResponseUtils = (response: Response): ResponseUtils => {
+export const ResponseUtils = (response: ResponseBase): ResponseUtils => {
   const utils: ResponseUtils = {
     resSuccess(data) {
       response.json({
