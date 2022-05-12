@@ -1,5 +1,8 @@
 import { getConnection, getConnectionManager, ObjectType } from 'typeorm';
 
+/**
+ * @deprecated
+ */
 export const getLazyCustomRepository = <R extends object>(
   repository: ObjectType<R>,
   connectionName = 'default'

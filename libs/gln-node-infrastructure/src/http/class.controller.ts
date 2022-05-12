@@ -73,7 +73,7 @@ export class HttpController extends BaseClass {
           next: NextFunction
         ) => {
           try {
-            return await handler(req, res, next);
+            return await handler.call(this, req, res, next);
           } catch (error) {
             next(error);
           }

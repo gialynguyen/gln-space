@@ -1,12 +1,13 @@
 import {
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
   UpdateDateColumn,
+  BaseEntity as CoreBaseEntity,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
-export abstract class BaseEntity {
+export abstract class BaseEntity extends CoreBaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
