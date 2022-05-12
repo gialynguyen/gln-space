@@ -7,21 +7,13 @@ import { HttpHandleMethod } from './method.http';
 
 export const Route = (method: HttpHandleMethod, path = '/') => {
   return function (
-    target: object,
+    target: any,
     name: string,
     descriptor: PropertyDescriptor
   ): void {
     const { constructor } = target;
 
     const originalHandler = descriptor.value;
-
-    const wrapFn: HttpControllerMethodHander = async (req, res, next) => {
-      try {
-        return await originalHandler(req, res, next);
-      } catch (error) {
-        next(error);
-      }
-    };
 
     // eslint-disable-next-line no-prototype-builtins
     if (HttpController.isPrototypeOf(constructor)) {
@@ -31,18 +23,18 @@ export const Route = (method: HttpHandleMethod, path = '/') => {
       httpHandlers.push({
         method,
         path,
-        handler: wrapFn,
+        handler: originalHandler,
         propertyName: name,
       });
 
       Reflect.defineMetadata(META_DATA.HttpHandler, httpHandlers, target);
 
       Object.defineProperty(target, name, {
-        value: wrapFn,
-        writable: false,
+        value: originalHandler,
+        writable: true,
       });
 
-      descriptor.value = wrapFn;
+      descriptor.value = originalHandler;
     }
   };
 };

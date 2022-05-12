@@ -66,6 +66,19 @@ export class HttpController extends BaseClass {
 
       for (let index = 0; index < httpHandlers.length; index++) {
         const { method, path, handler, propertyName } = httpHandlers[index];
+
+        const wrapErrorHandling = async (
+          req: Request,
+          res: Response,
+          next: NextFunction
+        ) => {
+          try {
+            return await handler(req, res, next);
+          } catch (error) {
+            next(error);
+          }
+        };
+
         const joinedPath = join(defaultPath, path);
 
         const middlewares =
@@ -74,7 +87,7 @@ export class HttpController extends BaseClass {
             this[propertyName as keyof this]
           ) || [];
 
-        router[method]?.(joinedPath, middlewares, handler.bind(this));
+        router[method]?.(joinedPath, middlewares, wrapErrorHandling.bind(this));
       }
     };
 

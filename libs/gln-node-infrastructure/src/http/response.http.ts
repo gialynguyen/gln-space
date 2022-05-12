@@ -4,7 +4,10 @@ export type ResponseUtils = {
   resSuccess(data?: unknown): ResponseUtils;
   resError(
     message: string,
-    otherPayload?: Record<string, unknown>
+    otherPayload?: Record<string, unknown>,
+    options?: {
+      statusCode?: number;
+    }
   ): ResponseUtils;
 };
 
@@ -21,8 +24,8 @@ export const ResponseUtils = (response: ResponseBase): ResponseUtils => {
 
       return this;
     },
-    resError(message, detail) {
-      response.json({
+    resError(message, detail, options) {
+      response.status(options?.statusCode || 400).json({
         success: false,
         data: null,
         error: {
