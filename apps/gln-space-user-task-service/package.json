@@ -11,7 +11,7 @@
     "start": "npm run compile && node dist/index.js",
     "dev:resources": "docker-compose up -d dev-resources",
     "dev:resources:stop": "docker-compose down dev-resources",
-    "dev": "nodemon -r tsconfig-paths/register -r ts-node index.ts | pino-pretty",
+    "dev": "npm run dev:resources && nodemon -r tsconfig-paths/register -r ts-node index.ts | pino-pretty",
     "dev:debug": "nodemon --inspect --exec \"node -r tsconfig-paths/register -r ts-node/register\" index.ts",
     "debug": "node --inspect -r tsconfig-paths/register -r ts-node/register index.ts",
     "test": "ENV_FILE=.env.test jest",
