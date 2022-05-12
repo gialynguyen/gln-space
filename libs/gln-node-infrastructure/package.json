@@ -2,7 +2,7 @@
   "name": "@gln-libs/node-infrastructure",
   "description": "Common Infrastructure Nodejs",
   "license": "MIT",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "typings": "dist/index.d.ts",
