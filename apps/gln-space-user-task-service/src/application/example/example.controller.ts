@@ -5,26 +5,31 @@ import {
   Request,
   Response,
   Route,
+  Router,
 } from '@gln-libs/node-infrastructure';
 
 import { CreateExampleRequestBodySchema } from './dto/example.request.dto';
+import { ExampleService } from './example.service';
 
 @Controller('/example')
 export class ExampleController extends HttpController {
-  // @Route('get', '/ping')
-  // async ping(_: Request, res: Response): Promise<void> {
-  //   res.write('pong');
-  //   res.end();
-  // }
+  exampleService: ExampleService;
+
+  constructor(router: Router) {
+    super(router);
+
+    this.exampleService = new ExampleService();
+  }
 
   @Route('post')
   @HttpBodyValidate(CreateExampleRequestBodySchema)
   async create(req: Request, response: Response): Promise<void> {
     const { name }: CreateExampleRequestBodySchema = req.body;
-    // call the service later
 
-    response.resSuccess({
+    const example = await this.exampleService.createExample({
       name,
     });
+
+    response.resSuccess(example);
   }
 }

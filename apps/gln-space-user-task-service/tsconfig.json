@@ -15,6 +15,7 @@
     "allowJs": true,
     "paths": {
       "@app/*": ["src/application/*"],
+      "@datasource/*": ["src/datasource/*"],
       "*": ["*"]
     },
     "typeRoots": ["*.d.ts", "types/*.d.ts"],
