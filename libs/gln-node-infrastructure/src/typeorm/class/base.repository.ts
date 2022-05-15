@@ -19,8 +19,12 @@ export const createBaseRepository = <
   Entity extends BaseEntity
 >(): BaseRepository<Entity> => ({
   async findById(id) {
-    const results = await this.findById(id);
+    const result = await (this as unknown as Repository<any>).findOne({
+      where: {
+        id,
+      },
+    });
 
-    return results;
+    return result;
   },
 });
