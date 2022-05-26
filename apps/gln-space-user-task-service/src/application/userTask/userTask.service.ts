@@ -1,10 +1,10 @@
 import { UserTaskRepository } from '@datasource/postgresql';
 
 import { UserTaskFromEntityDTO } from './dto/userTask.response.dto';
-import { CreateUserTaskPayload, UserTask } from './interface/userTask';
+import { UserTask } from './interface/userTask';
 
 export class UserTaskService {
-  async createUserTask(payload: CreateUserTaskPayload): Promise<UserTask> {
+  async createUserTask(payload: UserTask): Promise<UserTask> {
     const userTask = UserTaskRepository.create(payload);
 
     const userTaskEntity = await UserTaskRepository.save(userTask);
