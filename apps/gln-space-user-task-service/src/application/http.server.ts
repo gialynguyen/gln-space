@@ -4,6 +4,7 @@ import express from 'express';
 import { AppConfig } from './config';
 import { ExampleController } from './example/example.controller';
 import { corsMiddleware, errorHandlerMiddleware } from './middleware';
+import { UserTaskController } from './userTask/userTask.controller';
 
 const setupAppMiddlewares = (app: express.Express) => {
   app.use(httpLogger());
@@ -23,6 +24,7 @@ const setupAppMiddlewares = (app: express.Express) => {
 
 const initializeControllers = (router: express.Router): void => {
   new ExampleController(router);
+  new UserTaskController(router);
 };
 
 const setupBackgroundAppMiddlewares = (app: express.Express) => {
