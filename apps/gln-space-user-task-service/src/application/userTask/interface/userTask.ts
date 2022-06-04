@@ -6,4 +6,14 @@ export type UserTask = {
   endTime?: string;
 };
 
-export type CreateUserTaskPayload = Omit<UserTask, 'customerId'>;
+export type UserTaskServiceRes = {
+  data?: UserTask;
+  errorMessage?: string;
+};
+
+export type UpdateUserTaskPayload = {
+  title?: string;
+  description?: string;
+  startTime?: string;
+  endTime?: string;
+};
