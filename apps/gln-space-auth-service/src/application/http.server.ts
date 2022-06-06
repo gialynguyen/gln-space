@@ -2,7 +2,8 @@ import { httpLogger, ResponseUtils } from '@gln-libs/node-infrastructure';
 import express from 'express';
 
 import { AppConfig } from './config';
-import { corsMiddleware } from './middleware';
+import { corsMiddleware, errorHandlerMiddleware } from './middleware';
+import { UserAuthController } from './userAuth/userAuth.controller';
 
 const setupAppMiddlewares = (app: express.Express) => {
   app.use(httpLogger());
@@ -19,12 +20,27 @@ const setupAppMiddlewares = (app: express.Express) => {
   );
 };
 
+const initializeControllers = (router: express.Router): void => {
+  new UserAuthController(router);
+};
+
+const setupBackgroundAppMiddlewares = (app: express.Express) => {
+  app.use(errorHandlerMiddleware);
+};
+
 export const startHttpServer = (): void => {
   const { port } = AppConfig.HttpServer;
 
   const app = express();
 
   setupAppMiddlewares(app);
+
+  const apiRouter = express.Router();
+  initializeControllers(apiRouter);
+
+  app.use('/api/v1', apiRouter);
+
+  setupBackgroundAppMiddlewares(app);
 
   app.listen(port, () => {
     global.logger.info(`HttpServer started on port ${port}`);

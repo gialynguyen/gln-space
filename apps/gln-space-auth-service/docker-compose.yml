@@ -1,0 +1,36 @@
+version: '2.4'
+
+networks:
+  auth-service:
+    driver: bridge
+
+services:
+  postgres:
+    container_name: auth-postgres
+    image: postgres
+    restart: always
+    ports:
+      - '5251:5432'
+    volumes:
+      - /var/gln-space/auth-service/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=auth
+      - POSTGRES_PASSWORD=gln1122
+    networks:
+      - auth-service
+  api-server:
+    container_name: auth-api
+    build:
+      dockerfile: Dockerfile
+    networks:
+      - auth-service
+    ports:
+      - '10002:1337'
+    depends_on:
+      - postgres
+  dev-resources:
+    image: docksal/empty
+    restart: 'no'
+    depends_on:
+      - postgres
