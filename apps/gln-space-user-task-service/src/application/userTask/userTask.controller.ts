@@ -37,9 +37,8 @@ export class UserTaskController extends HttpController {
       payload
     );
 
-    if (createUserTaskresult.data)
-      response.resSuccess(createUserTaskresult.data);
-    else response.resError(createUserTaskresult.errorMessage);
+    if (createUserTaskresult) response.resSuccess(createUserTaskresult);
+    else response.resError('fail');
   }
 
   @Route('post', '/:id')
@@ -54,8 +53,7 @@ export class UserTaskController extends HttpController {
       req.params.id
     );
 
-    if (updateUserTaskresult.data)
-      response.resSuccess(updateUserTaskresult.data);
-    else response.resError(updateUserTaskresult.errorMessage);
+    if (updateUserTaskresult) response.resSuccess(updateUserTaskresult);
+    else response.resError('fail');
   }
 }

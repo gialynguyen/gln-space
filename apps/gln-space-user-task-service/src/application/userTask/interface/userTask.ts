@@ -6,10 +6,7 @@ export type UserTask = {
   endTime?: string;
 };
 
-export type UserTaskServiceRes = {
-  data?: UserTask;
-  errorMessage?: string;
-};
+export type UserTaskServiceRes = UserTask;
 
 export type UpdateUserTaskPayload = {
   title?: string;

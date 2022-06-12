@@ -1,4 +1,8 @@
-import { UserTaskRepository } from '@datasource/postgresql';
+import {
+  primaryDataSource,
+  UserTaskEntity,
+  UserTaskRepository,
+} from '@datasource/postgresql';
 
 import { UserTaskFromEntityDTO } from './dto/userTask.response.dto';
 import {
@@ -7,57 +11,74 @@ import {
   UserTaskServiceRes,
 } from './interface/userTask';
 
+export type UserTaskValidateField = {
+  startTime: string;
+  endTime: string;
+};
+
 export class UserTaskService {
+  validateUserTask(data: UserTaskValidateField): boolean {
+    const { startTime, endTime } = data;
+
+    if (endTime && !(new Date(startTime) < new Date(endTime))) return false;
+
+    return true;
+  }
+
   async createUserTask(payload: UserTask): Promise<UserTaskServiceRes> {
     const { startTime, endTime } = payload;
 
-    if (endTime && !(new Date(startTime) < new Date(endTime)))
-      return { errorMessage: 'endTime must be grater than startTime' };
+    if (!this.validateUserTask({ startTime, endTime })) return;
 
     const userTask = UserTaskRepository.create(payload);
 
     const userTaskEntity = await UserTaskRepository.save(userTask);
 
-    return { data: UserTaskFromEntityDTO.toClass(userTaskEntity) };
+    return UserTaskFromEntityDTO.toClass(userTaskEntity);
   }
 
   async updateUserTask(
     payload: UpdateUserTaskPayload,
     id: string
   ): Promise<UserTaskServiceRes> {
-    // Validate empty
-    if (Object.keys(payload).length === 0)
-      return { errorMessage: 'data for update is empty' };
+    if (Object.keys(payload).length === 0) return;
 
-    // Validate startTime-endTime
     const { startTime, endTime } = payload;
 
-    if (endTime) {
-      if (startTime) {
-        if (!(new Date(startTime) < new Date(endTime)))
-          return { errorMessage: 'endTime must be grater than startTime' };
-      } else {
-        const { startTime: currentStartTime } =
-          await UserTaskRepository.findOneByOrFail({
-            id,
-          });
+    if (startTime && !this.validateUserTask({ startTime, endTime })) return;
 
-        if (!(new Date(currentStartTime) < new Date(endTime)))
-          return { errorMessage: 'endTime must be grater than startTime' };
-      }
+    const queryRunner = primaryDataSource.createQueryRunner();
+
+    await queryRunner.connect();
+
+    await queryRunner.startTransaction();
+
+    const userTaskResult = await queryRunner.manager.update(
+      UserTaskEntity,
+      id,
+      payload
+    );
+
+    if (userTaskResult.affected === 0) return;
+
+    const updatedEntity = await queryRunner.manager.findOneBy(UserTaskEntity, {
+      id,
+    });
+
+    if (
+      !this.validateUserTask({
+        startTime: updatedEntity.startTime,
+        endTime: updatedEntity.endTime,
+      })
+    ) {
+      await queryRunner.rollbackTransaction();
+      await queryRunner.release();
+      return;
     }
 
-    // Update entity
-    const userTaskResult = await UserTaskRepository.update(id, payload);
+    await queryRunner.commitTransaction();
+    await queryRunner.release();
 
-    // Return
-    if (userTaskResult.affected === 0) {
-      return { errorMessage: 'update user task fail' };
-    } else {
-      const updatedUserTask = await UserTaskRepository.findOneByOrFail({
-        id,
-      });
-      return { data: UserTaskFromEntityDTO.toClass(updatedUserTask) };
-    }
+    return UserTaskFromEntityDTO.toClass(updatedEntity);
   }
 }
