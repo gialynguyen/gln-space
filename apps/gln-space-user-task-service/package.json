@@ -15,10 +15,13 @@
     "dev:debug": "nodemon --inspect --exec \"node -r tsconfig-paths/register -r ts-node/register\" index.ts",
     "debug": "node --inspect -r tsconfig-paths/register -r ts-node/register index.ts",
     "test": "ENV_FILE=.env.test jest",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "migration:generate": "dotenv -e .env -- gln-cli typeorm migration:generate -d ./src/datasource/postgresql/datasource.ts",
+    "migration:run": "dotenv -e .env -- gln-cli typeorm migration:run -d ./src/datasource/postgresql/datasource.ts"
   },
   "dependencies": {
     "@gln-libs/node-infrastructure": "workspace:*",
+    "@gln-libs/cli": "workspace:*",
     "body-parser": "^1.19.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
