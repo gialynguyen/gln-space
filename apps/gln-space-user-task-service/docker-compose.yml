@@ -8,7 +8,6 @@ services:
   postgres:
     container_name: user-task-postgres
     image: postgres
-    restart: always
     ports:
       - '5250:5432'
     volumes:
