@@ -16,6 +16,7 @@ importers:
 
   apps/gln-space-auth-service:
     specifiers:
+      '@gln-libs/cli': workspace:*
       '@gln-libs/eslint-plugins': 1.1.0
       '@gln-libs/node-infrastructure': workspace:*
       '@types/cors': ~2.8.12
@@ -44,6 +45,7 @@ importers:
       typeorm: ^0.3.6
       typescript: 4.6.3
     dependencies:
+      '@gln-libs/cli': link:../../libs/gln-cli
       '@gln-libs/node-infrastructure': link:../../libs/gln-node-infrastructure
       bcrypt: 5.0.1
       body-parser: 1.20.0
@@ -205,7 +207,6 @@ importers:
       esbuild: ^0.14.38
       express: ^4.17.3
       jest: ^28.1.0
-      micromatch: ^4.0.5
       pino: ^7.11.0
       pino-http: ^7.0.0
       pino-pretty: ~7.6.1
@@ -223,7 +224,6 @@ importers:
       class-transformer-validator: 0.9.1_279461c9b8c03a205cdbc4878bc60cf8
       class-validator: 0.13.2
       express: 4.17.3
-      micromatch: 4.0.5
       pino: 7.11.0
       pino-http: 7.0.0
       reflect-metadata: 0.1.13
