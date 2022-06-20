@@ -8,8 +8,11 @@ import {
   Router,
 } from '@gln-libs/node-infrastructure';
 
-import { CreateUserTaskRequestBodySchema } from './dto/userTask.request.dto';
-import { UserTask } from './interface/userTask';
+import {
+  CreateUserTaskRequestBodySchema,
+  UpdateUserTaskRequestBodySchema,
+} from './dto/userTask.request.dto';
+import { UpdateUserTaskPayload, UserTask } from './interface/userTask';
 import { UserTaskService } from './userTask.service';
 
 @Controller('/task')
@@ -30,8 +33,27 @@ export class UserTaskController extends HttpController {
       customerId: req.headers['customer-id'],
     };
 
-    const userTask = await this.userTaskService.createUserTask(payload);
+    const createUserTaskresult = await this.userTaskService.createUserTask(
+      payload
+    );
 
-    response.resSuccess(userTask);
+    if (createUserTaskresult) response.resSuccess(createUserTaskresult);
+    else response.resError('fail');
+  }
+
+  @Route('post', '/:id')
+  @HttpBodyValidate(UpdateUserTaskRequestBodySchema)
+  async update(req: Request, response: Response): Promise<void> {
+    const payload: UpdateUserTaskPayload = {
+      ...req.body,
+    };
+
+    const updateUserTaskresult = await this.userTaskService.updateUserTask(
+      payload,
+      req.params.id
+    );
+
+    if (updateUserTaskresult) response.resSuccess(updateUserTaskresult);
+    else response.resError('fail');
   }
 }
