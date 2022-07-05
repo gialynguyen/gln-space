@@ -1,0 +1,89 @@
+.button {
+  @apply font-medium;
+  @apply w-full;
+  @apply border-0 outline-none bg-transparent rounded-md cursor-pointer;
+
+  &-sm {
+    @apply px-3 py-2 text-xs;
+  }
+  &-base {
+    @apply px-4 py-3 text-sm;
+  }
+  &-lg {
+    @apply px-5 py-4 text-base;
+  }
+
+  &-info {
+    @apply text-blue-600 bg-slate-300/30;
+
+    &:hover {
+      @apply bg-slate-400/20 transition;
+    }
+  }
+  &-link {
+    @apply text-blue-600 bg-transparent;
+
+    &:hover {
+      @apply text-blue-700 underline underline-offset-2 transition;
+    }
+  }
+  &-primary {
+    @apply text-blue-50 bg-blue-600;
+
+    &:hover {
+      @apply bg-blue-700 transition;
+    }
+  }
+  &-primary-bordered {
+    @apply text-blue-600 bg-blue-50/50 border border-blue-800;
+
+    &:hover {
+      @apply bg-blue-100/50 transition;
+    }
+  }
+  &-secondary {
+    @apply text-blue-600 bg-blue-300/30;
+
+    &:hover {
+      @apply bg-blue-400/30 transition;
+    }
+  }
+  &-secondary-bordered {
+    @apply text-slate-600 bg-blue-300/30 border border-slate-300;
+
+    &:hover {
+      @apply bg-blue-400/30 transition;
+    }
+  }
+  &-success {
+    @apply text-green-50 bg-green-600;
+
+    &:hover {
+      @apply bg-green-700 transition;
+    }
+  }
+  &-success-bordered {
+    @apply text-green-600 border border-green-600 bg-green-50/30;
+
+    &:hover {
+      @apply bg-green-50/80 transition;
+    }
+  }
+  &-warning {
+    @apply text-red-50 bg-red-600;
+
+    &:hover {
+      @apply bg-red-700 transition;
+    }
+  }
+  &-warning-bordered {
+    @apply text-red-600 border border-red-600 bg-red-50/30;
+
+    &:hover {
+      @apply bg-red-50/80 transition;
+    }
+  }
+  &-disabled {
+    @apply cursor-not-allowed bg-slate-200 text-slate-400;
+  }
+}
