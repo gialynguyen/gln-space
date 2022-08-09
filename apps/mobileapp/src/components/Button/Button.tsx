@@ -1,22 +1,13 @@
 import React, {FC} from 'react';
-import {View, Button, StyleProp, ViewStyle} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 
 import {CustomButtonProps} from './type';
 
-const CustomButton: FC<CustomButtonProps> = ({
-  style,
-  buttonProps,
-  isFullWidth,
-}) => {
-  const buttonStyle: StyleProp<ViewStyle> = {
-    ...(style as Object),
-    alignSelf: !isFullWidth ? 'flex-start' : undefined,
-  };
-
+const CustomButton: FC<CustomButtonProps> = ({title, ...props}) => {
   return (
-    <View style={buttonStyle}>
-      <Button {...buttonProps} color={style?.color} />
-    </View>
+    <TouchableOpacity {...props}>
+      <Text {...props}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 

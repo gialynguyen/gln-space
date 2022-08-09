@@ -12,8 +12,7 @@ import React from 'react';
 import {SafeAreaView, StyleSheet, useColorScheme, View} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Button from './src/components/Button/Button';
-import {CYAN_BLUE, WHITE} from './src/constants/styles/colors';
+import {Button} from './src/components/Button';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -26,10 +25,7 @@ const App = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <View style={styles.viewStyle}>
-        <Button
-          style={styles.buttonStyle}
-          buttonProps={{title: 'The first component'}}
-        />
+        <Button title="The first component" />
       </View>
     </SafeAreaView>
   );
@@ -40,12 +36,6 @@ const styles = StyleSheet.create({
     marginTop: 100,
     flexDirection: 'row',
     justifyContent: 'center',
-  },
-  buttonStyle: {
-    padding: 7,
-    color: WHITE,
-    borderRadius: 17,
-    backgroundColor: CYAN_BLUE,
   },
 });
 
